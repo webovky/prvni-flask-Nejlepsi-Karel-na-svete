@@ -31,6 +31,10 @@ def index():
 def info():
     return render_template("info.html")
 
+@app.route("/pomerance/")
+def pomerance():
+    return render_template("pomerance.html")
+
 
 @app.route("/abc/")
 def abc():
