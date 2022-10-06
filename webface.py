@@ -31,9 +31,21 @@ def index():
 def info():
     return render_template("info.html")
 
-@app.route("/pomerance/")
+@app.route("/pomerance/" , methods = ['GET', 'POST'])
 def pomerance():
-    return render_template("pomerance.html")
+
+    hmotnost = request.args.get('hmotnost')
+    vyska = request.args.get('vyska')
+
+    print(hmotnost, vyska)
+    if hmotnost  and vyska :
+        metry = int(vyska/100)
+        bmi = int(hmotnost)/metry**2
+    else:
+        bmi = None
+
+    print(bmi)
+    return render_template("pomerance.html", bmi=bmi)
 
 
 @app.route("/abc/")

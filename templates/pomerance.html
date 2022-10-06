@@ -4,16 +4,25 @@
 
 {% block obsah %}
 
-<h1>Ona lubi Pomeranče</h1>
+<h1>BMI</h1>
 
 <p><img src="{{ url_for('static', filename='pomeranc.jpeg')}}" alt=''></p>
 
+<p>{%if bmi != None%}
+"BMI" = {{bmi}}
+{%endif%}
+    </p>
 
-<form action="" method = "POST">
-    <input type="text">
+
+<form action="" method = "GET">
+    <p>Hmotnost: <br>
+    <input type="number" name= "hmotnost" placeholder="Hmotnost kg">  kg </p>
+    <p>Výska: <br>
+
+    <input type="number" name="vyska" placeholder="Vyska cm">  cm </p>
     
-    <input type="password" name="name" id="">
-    <input type="submit" value="'odesli to ">
+    <p><input type="submit" value="Vypocitej"></p>
+   
 </form>
 
 {% endblock obsah %}
