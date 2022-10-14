@@ -1,2 +1,2 @@
-FLASK_APP=webface
+FLASK_APP=webface.py
 FLASK_ENV=production
