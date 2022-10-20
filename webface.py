@@ -39,7 +39,7 @@ def pomerance():
 
     print(hmotnost, vyska)
     if hmotnost  and vyska :
-        metry = int(vyska/100)
+        metry = int(vyska)/100
         bmi = int(hmotnost)/metry**2
     else:
         bmi = None
