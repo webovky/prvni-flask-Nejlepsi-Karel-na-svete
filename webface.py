@@ -39,8 +39,11 @@ def pomerance():
 
     print(hmotnost, vyska)
     if hmotnost  and vyska :
-        metry = int(vyska)/100
-        bmi = int(hmotnost)/metry**2
+        try:
+            metry = int(vyska)/100
+            bmi = int(hmotnost)/metry**2
+        except (ZeroDivisionError, ValueError):
+            bmi = None
     else:
         bmi = None
 
