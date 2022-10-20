@@ -31,6 +31,25 @@ def index():
 def info():
     return render_template("info.html")
 
+@app.route("/pomerance/" , methods = ['GET', 'POST'])
+def pomerance():
+
+    hmotnost = request.args.get('hmotnost')
+    vyska = request.args.get('vyska')
+
+    print(hmotnost, vyska)
+    if hmotnost  and vyska :
+        try:
+            metry = int(vyska)/100
+            bmi = int(hmotnost)/metry**2
+        except (ZeroDivisionError, ValueError):
+            bmi = None
+    else:
+        bmi = None
+
+    print(bmi)
+    return render_template("pomerance.html", bmi=bmi)
+
 
 @app.route("/abc/")
 def abc():
