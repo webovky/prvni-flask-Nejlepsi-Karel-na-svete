@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import functools
 
 # from werkzeug.security import generate_password_hash, check_password_hash
@@ -33,6 +33,9 @@ def info():
 
 @app.route("/pomerance/" , methods = ['GET', 'POST'])
 def pomerance():
+    if 'uzivatel' not in session:
+        flash('jsi ty vubec normalni? nejsi prihlaseny ')
+        return redirect(url_for('login'))
 
     hmotnost = request.args.get('hmotnost')
     vyska = request.args.get('vyska')
@@ -65,3 +68,23 @@ def text():
 <p>toto je text</p>
 
 """
+@app.route("/login/", methods = ['GET'])
+def login():
+    jmeno = request.args.get('jmeno')
+    heslo = request.args.get('heslo')
+    return render_template("login.html")
+
+@app.route("/login/", methods = ['POST'])
+def login_post():
+    jmeno = request.form.get('jmeno')
+    heslo = request.form.get('heslo')
+    if jmeno and heslo:
+        session['uzivatel'] = jmeno
+
+
+    return redirect(url_for('login'))
+
+@app.route("/logout/", methods = ['GET', 'POST'])
+def logiout():
+    session.pop('uzivatel', None)
+    return redirect(url_for('index'))
