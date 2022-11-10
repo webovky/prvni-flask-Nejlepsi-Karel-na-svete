@@ -46,7 +46,6 @@ footer {
   background-color: #ecc8f0; }
 
 .login {
-  display: inline-block;
   float: right;
   width: 30%;
   border: orange solid 2px;
@@ -60,5 +59,21 @@ footer {
     background-color: lightblue;
 }
 
+.flash {
+  display: block;
+  position: absolute;  
+  width: 40%;
+  border: 2px orangered solid;
+  border-radius: 20px;
+  padding: 2ex;
+  left: 30%;
+  top: 0;
 
+}
+
+.error{
+  background-color: red;
+  color: black;
+
+}
 /*# sourceMappingURL=styles.css.map */

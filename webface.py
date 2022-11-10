@@ -34,7 +34,7 @@ def info():
 @app.route("/pomerance/" , methods = ['GET', 'POST'])
 def pomerance():
     if 'uzivatel' not in session:
-        flash('jsi ty vubec normalni? nejsi prihlaseny ')
+        flash('jsi ty vubec normalni? nejsi prihlaseny ', 'error')
         return redirect(url_for('login'))
 
     hmotnost = request.args.get('hmotnost')
@@ -85,6 +85,6 @@ def login_post():
     return redirect(url_for('login'))
 
 @app.route("/logout/", methods = ['GET', 'POST'])
-def logiout():
+def logout():
     session.pop('uzivatel', None)
     return redirect(url_for('index'))

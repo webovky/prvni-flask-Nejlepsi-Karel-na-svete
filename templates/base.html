@@ -21,7 +21,7 @@
 <p class = 'login'>
 
 {% if 'uzivatel' in session %}
-  jsi prihlaseny jako {{session ['uzivatel']}}
+  jsi prihlaseny jako {{session ['uzivatel']}}<a href="{{ url_for('logout') }}"> odhlasit se</a>
 
 {% else %}
 nejsi prihlaseny <a href="{{ url_for('login') }}"> Prihlas se</a>
@@ -44,8 +44,8 @@ nejsi prihlaseny <a href="{{ url_for('login') }}"> Prihlas se</a>
   </ul></nav>
 
   
-{% for message in get_flashed_messages() %}
-<p class="flash">{{message}}</p>
+{% for category, message in get_flashed_messages(with_categories=true) %}
+  <p class="flash {{ category }}"><button class="hide">x</button>   {{message}}</p>
 {% endfor %}
 
 {% block obsah %}
@@ -78,7 +78,13 @@ Užitečné odkazy:
 {#{% endfilter %}#}
 </footer>
 
+<script>
 
+  function hide() {
+    
+  }
+  var tlactka = document.getElementsByClassName('hide')
+</script>
 
 
 </body>
