@@ -72,17 +72,28 @@ def text():
 def login():
     jmeno = request.args.get('jmeno')
     heslo = request.args.get('heslo')
-    return render_template("login.html")
+    print(jmeno, heslo)
+    if request.method == 'GET':
+        return render_template( 'login.html')
+
 
 @app.route("/login/", methods = ['POST'])
 def login_post():
-    jmeno = request.form.get('jmeno')
-    heslo = request.form.get('heslo')
-    if jmeno and heslo:
-        session['uzivatel'] = jmeno
-
-
-    return redirect(url_for('login'))
+     jmeno = request.form.get('jmeno')
+     heslo = request.form.get('heslo')
+     page = request.args.get('page')
+     if jmeno == 'qwert' and heslo=='qwert':
+        flash('Jsi přihlášen!', 'message' )
+        session['uživatel'] = jmeno
+        if page:
+            return redirect(page)
+     else:
+        flash('Nespávné přihlašovací udaje','error')
+     if page:
+        return redirect( url_for ('login', page=page))
+     return redirect( url_for ('login'))
+        #stejne jako funkce get, jen jiný zápis
+        #od martina 
 
 @app.route("/logout/", methods = ['GET', 'POST'])
 def logout():
