@@ -10,6 +10,9 @@ app.secret_key = b"x6\x87j@\xd3\x88\x0e8\xe8pM\x13\r\xafa\x8b\xdbp\x8a\x1f\xd41\
 
 slova = ("Super", "Perfekt", "Úža", "Flask")
 
+import sqlite3
+conn = sqlite3.connect('SQLlite.db')
+
 
 def prihlasit(function):
     @functools.wraps(function)
