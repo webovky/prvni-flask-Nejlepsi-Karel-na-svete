@@ -82,19 +82,23 @@ def login():
 
 @app.route("/login/", methods = ['POST'])
 def login_post():
-     jmeno = request.form.get('jmeno')
-     heslo = request.form.get('heslo')
-     page = request.args.get('page')
-     if jmeno == 'qwert' and heslo=='qwert':
-        flash('Jsi přihlášen!', 'message' )
-        session['uživatel'] = jmeno
-        if page:
+    jmeno = request.form.get('jmeno')
+    heslo = request.form.get('heslo')
+    page = request.args.get('page')
+
+    with conn, conn.cursor() as cur:
+        cur.execute('select passwd from user WHERE jmeno = ')
+
+    if jmeno == 'qwert' and heslo=='qwert':
+       flash('Jsi přihlášen!', 'message' )
+       session['uživatel'] = jmeno
+       if page:
             return redirect(page)
-     else:
+    else:
         flash('Nespávné přihlašovací udaje','error')
-     if page:
-        return redirect( url_for ('login', page=page))
-     return redirect( url_for ('login'))
+    if page:
+       return redirect( url_for ('login', page=page))
+    return redirect( url_for ('login'))
         #stejne jako funkce get, jen jiný zápis
         #od martina 
 
