@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import functools
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -10,8 +11,7 @@ app.secret_key = b"x6\x87j@\xd3\x88\x0e8\xe8pM\x13\r\xafa\x8b\xdbp\x8a\x1f\xd41\
 
 slova = ("Super", "Perfekt", "Úža", "Flask")
 
-import sqlite3
-conn = sqlite3.connect('SQLlite.db')
+from mysqlite import SQLite
 
 
 def prihlasit(function):
@@ -86,10 +86,11 @@ def login_post():
     heslo = request.form.get('heslo')
     page = request.args.get('page')
 
-    with conn, conn.cursor() as cur:
-        cur.execute('select passwd from user WHERE jmeno = ')
+    with SQLite('SQLlite.db') as cur:
+        cur.execute('select passwd FROM user WHERE login = ?', [jmeno])
+        ans = cur.fetchall()
 
-    if jmeno == 'qwert' and heslo=='qwert':
+    if ans and ans[0][0] == heslo:
        flash('Jsi přihlášen!', 'message' )
        session['uživatel'] = jmeno
        if page:
@@ -106,3 +107,37 @@ def login_post():
 def logout():
     session.pop('uzivatel', None)
     return redirect(url_for('index'))
+
+@app.route("/registr/", methods = ['GET'])
+def registr():
+    jmeno = request.args.get('jmeno')
+    heslo = request.args.get('heslo')
+    heslo2 = request.form.get('heslo2')
+
+    print(jmeno, heslo, heslo2)
+    if request.method == 'GET':
+        return render_template( 'registr.html')
+
+
+@app.route("/registr/", methods = ['POST'])
+def registr_post():
+    jmeno = request.form.get('jmeno')
+    heslo = request.form.get('heslo')
+    heslo2 = request.form.get('heslo2')
+    page = request.args.get('page')
+
+    with SQLite('SQLlite.db') as cur:
+        cur.execute('INSERT INTO user = ??', [jmeno, heslo])
+        ans = cur.fetchall()
+    if heslo == heslo2:
+
+        if ans and ans[0][0] == heslo:
+            flash('Jsi přihlášen!', 'message' )
+            session['uživatel'] = jmeno
+        if page:
+                return redirect(page)
+        else:
+            flash('Nespávné přihlašovací udaje','error')
+    if page:
+       return redirect( url_for ('login', page=page))
+    return redirect( url_for ('pomerance'))
