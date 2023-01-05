@@ -1,6 +1,8 @@
 from pickle import GET
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import functools
+import string
+import random
 
 # from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -124,7 +126,7 @@ def registr_post():
     page = request.args.get('page')
 
     with SQLite('SQLlite.db') as cur:
-        cur.execute('INSERT INTO user = ??', [jmeno, heslo])
+        cur.execute('INSERT INTO user = (?, ?)', [jmeno, heslo])
         ans = cur.fetchall()
     if heslo == heslo2:
 
@@ -138,3 +140,23 @@ def registr_post():
     if page:
        return redirect( url_for ('login', page=page))
     return redirect( url_for ('pomerance'))
+
+
+@app.route("/zkracovac/")
+def zkracovac():
+    return render_template("zkracovac.html")
+
+
+
+@app.route("/zkracovac/", methods=['POST'])
+def zkracovac_post():
+    url = request.form.get('url')
+    zkratka = ''.join(random.choices(string.ascii_uppercase +
+                             string.digits, k=5))
+
+    with SQLite('SQLlite.db') as cur:
+        cur.execute('INSERT INTO adresy (zkratka, adresa) VALUES (?, ?)', [zkratka, url])
+
+
+
+    return redirect(url_for('zkracovac'))
