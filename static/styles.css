@@ -1,5 +1,5 @@
 body {
-  background-color: #e6ab09;
+  background-color: #ea0079;
   padding-left: 1em;
   padding-right: 1em;
   margin-left: 90px;
@@ -8,11 +8,11 @@ body {
 h1, h2, h3 {
   clear: both;
   margin-top: 3em;
-  color: violet;
+  color: #0aec0a;
 }
 
 h1 a {
-  color: #bb8800; 
+  color: #0aec0a; 
 }
 
 nav ul {
@@ -27,12 +27,12 @@ nav ul {
     }
     nav ul li a {
       display: block;
-      color: white;
-      background-color: #324b79;
+      color: rgb(0, 30, 255);
+      background-color: #7bff00;
       border-radius: 25px 50px 0px;
       padding: 1ex 2ex; }
     nav ul li a:hover {
-      color: #324b72;
+      color: #5e12a6;
       background-color: white;
     }
   nav img {
@@ -46,6 +46,7 @@ footer {
   background-color: #ecc8f0; }
 
 .login {
+  display: block;
   float: right;
   width: 30%;
   border: orange solid 2px;
@@ -59,21 +60,19 @@ footer {
     background-color: lightblue;
 }
 
-.flash {
+.flash{
   display: block;
-  position: absolute;  
-  width: 40%;
-  border: 2px orangered solid;
-  border-radius: 20px;
-  padding: 2ex;
+  position: absolute;
   left: 30%;
-  top: 0;
-
+  top: 1ex;
+  width: 40%;
+  border: 2px orange solid;
+  padding: 2ex;
+  border-radius: 20px;
+  font-weight: bold;
 }
-
 .error{
-  background-color: red;
-  color: black;
-
+  background-color: white;
+  color: red;
 }
 /*# sourceMappingURL=styles.css.map */

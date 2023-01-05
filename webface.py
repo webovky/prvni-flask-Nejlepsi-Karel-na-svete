@@ -1,6 +1,6 @@
+from pickle import GET
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import functools
-from werkzeug.security import generate_password_hash, check_password_hash
 
 # from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -34,33 +34,30 @@ def index():
 def info():
     return render_template("info.html")
 
-@app.route("/pomerance/" , methods = ['GET', 'POST'])
-def pomerance():
-    if 'uzivatel' not in session:
-        flash('jsi ty vubec normalni? nejsi prihlaseny ', 'error')
-        return redirect(url_for('login'))
-
-    hmotnost = request.args.get('hmotnost')
-    vyska = request.args.get('vyska')
-
-    print(hmotnost, vyska)
-    if hmotnost  and vyska :
-        try:
-            metry = int(vyska)/100
-            bmi = int(hmotnost)/metry**2
-        except (ZeroDivisionError, ValueError):
-            bmi = None
-    else:
-        bmi = None
-
-    print(bmi)
-    return render_template("pomerance.html", bmi=bmi)
-
 
 @app.route("/abc/")
 def abc():
+    if 'uživatel' not in session:
+        flash('Nejsi příhlášen, tato stránka vyžaduje přihlášení.', 'error')
+        return redirect(url_for('login', page=request.full_path))
     return render_template("abc.html", slova=slova)
 
+@app.route("/banan/", methods=["GET", "POST"])
+def banan():
+    if 'uživatel' not in session:
+        flash('Nejsi příhlášen, tato stránka vyžaduje přihlášení.', 'error')
+        return redirect(url_for('login', page=request.full_path))
+        
+    hmotnost= request.args.get("hmotnost")
+    
+    výška= request.args.get("výška")
+
+    print(hmotnost, výška)
+    if hmotnost and výška != None :  
+        bmi=int(hmotnost) / ((int(výška)/100)**2)
+    else:
+        bmi = 0
+    return render_template("banan.html", bmi=bmi)
 
 @app.route("/text/")
 def text():
@@ -101,12 +98,12 @@ def login_post():
        return redirect( url_for ('login', page=page))
     return redirect( url_for ('login'))
         #stejne jako funkce get, jen jiný zápis
-        #od martina 
 
-@app.route("/logout/", methods = ['GET', 'POST'])
+@app.route("/logout/", methods=["GET"])
 def logout():
-    session.pop('uzivatel', None)
-    return redirect(url_for('index'))
+    session.pop('uživatel', None)
+    return redirect( url_for ('login'))
+
 
 @app.route("/registr/", methods = ['GET'])
 def registr():

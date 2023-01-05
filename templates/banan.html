@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{%block title%}Informace{%endblock%}
+
+{% block obsah %}
+
+<h1>Miluju banany, BMI</h1>
+
+<p><img src="{{ url_for('static' , filename='banan.jpeg' ) }}" alt=""></p>
+<h2>formulář</h2>
+<form action="" method="get">
+    Hmotnost:<br><input type="number" name="hmotnost" placeholder="hmotnost v kg">kg <br>
+    Výška:<br><input type="number" name="výška" placeholder="výška v cm">cm <br>
+    <input type="submit" value="Vypočítej!">
+
+
+</form>
+<p>BMI={{bmi}}</p>
+
+
+
+
+
+
+
+
+{% endblock obsah %}
