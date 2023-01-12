@@ -5,5 +5,6 @@
   "emmet.includeLanguages": {
     "jinja-html": "html",
     "vue-html": "html"
-  }
+  },
+  "python.formatting.provider": "black"
 }

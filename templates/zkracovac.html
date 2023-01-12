@@ -6,10 +6,16 @@
 
 <h1>zkracovac URL</h1>
 
+
+{% if new %}
+<p>zkratka: <a href="{{new}}">{{new}}</a></p>
+
+{% endif %}
+
 <form method="post">
 
     <p class="url">
-    Zadej URL: <input type="text">
+    Zadej URL: <input name="url" type="text">
     <button type="submit">zkratit</button>
     </p>
 
