@@ -11,3 +11,27 @@ class SQLite():
     def __exit__(self, type, value, traceback):
         self.conn.commit()
         self.conn.close()
+
+
+if __name__ == '__main__':
+    with SQLite("SQLlite.db") as cur:
+        sql = """
+CREATE TABLE "adresy"(
+    "zkratka" TEXT NOT NULL,
+    "adresa" TEXT NOT NULL,
+    "user: TEXT,
+    PRIMARY KEY("zkratka")
+);
+        """
+        cur.execute(sql)
+
+        sql = """
+CREATE TABLE "user"(
+    "login" TEXT,
+    "passwd" TEXT,
+    PRIMARY KEY("login")
+);
+        
+        
+        """
+        cur.execute(sql)

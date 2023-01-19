@@ -15,11 +15,24 @@
 <form method="post">
 
     <p class="url">
-    Zadej URL: <input name="url" type="text">
-    <button type="submit">zkratit</button>
+        Zadej URL: <input name="url" type="text">
+        <button type="submit">zkratit</button>
     </p>
 
 
 </form>
+
+<h2>Seznam ulozenych zkratek</h2>
+
+<ul>
+    {% for zkratka, adresa in zkratky %}
+
+    <li><a href="{{url_for('dezkracovac', zkratka=zkratka)}}"> {{ zkratka }}</a></li>
+    <li>{{ zkratka }} <a href="{{ adresa }}"> {{ adresa }}</a></li>
+    {% endfor %}
+</ul>
+
+
+
 
 {% endblock obsah %}

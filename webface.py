@@ -154,14 +154,14 @@ def zkracovac():
     if "uživatel" in session:
         with SQLite("SQLlite.db") as cur:
             res = cur.execute(
-                "SELECT zkratka, adresa FROM adresy WHERE user =?"[session["uživatel"]]
+                "SELECT zkratka, adresa FROM adresy WHERE user =?", [session["uživatel"]]
             )
-            zkratky = res.fetchall
+            zkratky = res.fetchall()
             if zkratky == None:
                 zkratky = []
 
     else:
-        zkratky=[]
+        zkratky = []
     return render_template("zkracovac.html", new=new, zkratky=zkratky)
 
 
